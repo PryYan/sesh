@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "basketball-9",
-    "database": "seshDB",
+    "database": "seshdb",
     "host": "localhost",
     "dialect": "mysql"
   },

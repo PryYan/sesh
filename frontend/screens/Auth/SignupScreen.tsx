@@ -3,6 +3,7 @@ import { View, TextInput, Button, Text, StyleSheet, Image, KeyboardAvoidingView,
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AuthStackParamList } from '../../types/AuthStackParamList';
 import { RFValue } from 'react-native-responsive-fontsize';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 type SignUpScreenProps = {
   navigation: StackNavigationProp<AuthStackParamList, 'SignUp'>;
@@ -61,32 +62,44 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ navigation }) => {
 
       <Text style={styles.title}>Create your account</Text>
 
-      <TextInput
-        style={[styles.input, styles.topInput, !isEmailValid && styles.inputError]}
-        placeholder="Email"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        value={email}
-        onChangeText={setEmail}
-      />
+      {/* Email input with icon */}
+      <View style={styles.inputContainer}>
+        <Icon name="envelope" size={RFValue(20)} color="#000" style={styles.icon} />
+        <TextInput
+          style={[styles.input, styles.topInput, !isEmailValid && styles.inputError]}
+          placeholder="Email"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          value={email}
+          onChangeText={setEmail}
+        />
+      </View>
       {!isEmailValid && <Text style={styles.errorText}>Enter a valid email address</Text>}
 
-      <TextInput
-        style={[styles.input, styles.topInput, !isUsernameValid && styles.inputError]}
-        placeholder="Username"
-        autoCapitalize="none"
-        value={username}
-        onChangeText={setUsername}
-      />
+      {/* Username input with icon */}
+      <View style={styles.inputContainer}>
+        <Icon name="user" size={RFValue(20)} color="#000" style={styles.icon} />
+        <TextInput
+          style={[styles.input, styles.topInput, !isUsernameValid && styles.inputError]}
+          placeholder="Username"
+          autoCapitalize="none"
+          value={username}
+          onChangeText={setUsername}
+        />
+      </View>
       {!isUsernameValid && <Text style={styles.errorText}>Username must be at least 3 characters</Text>}
 
-      <TextInput
-        style={[styles.input, styles.topInput, !isPasswordValid && styles.inputError]}
-        placeholder="Password"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
+      {/* Password input with icon */}
+      <View style={styles.inputContainer}>
+        <Icon name="lock" size={RFValue(20)} color="#000" style={styles.icon} />
+        <TextInput
+          style={[styles.input, styles.topInput, !isPasswordValid && styles.inputError]}
+          placeholder="Password"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+      </View>
       {!isPasswordValid && (
         <Text style={styles.errorText}>
           Password must be at least 8 characters, including an uppercase letter, a lowercase letter, a number, and a special character.
@@ -110,7 +123,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#fff',
-    paddingTop: RFValue(20),
+    paddingTop: RFValue(40),
   },
   logo: {
     width: RFValue(200),
@@ -122,12 +135,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: RFValue(20),
   },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  icon: {
+    marginRight: RFValue(10),
+  },
   input: {
-    width: '70%',
+    width: RFValue(225),
     height: RFValue(40),
     backgroundColor: '#fff',
     borderRadius: RFValue(8),
-    marginBottom: RFValue(20),
+    marginBottom: RFValue(5),
     paddingHorizontal: RFValue(10),
   },
   topInput: {

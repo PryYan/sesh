@@ -1,21 +1,22 @@
-const express = require('express');
-const { Sequelize } = require('sequelize');
+import express from 'express';
+import sequelize from './config/database.js';
+import router from './routes/routes.js';
 
 const app = express();
-const PORT = 3000;
 
-const sequelize = new Sequelize({
-    dialect: 'mysql',
-    host: '127.0.0.1',
-    username: 'root',
-    password: 'your_password',
-    database: 'your_database',
-});
+app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
 
-// Define your routes and middleware here
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+app.use((_, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
 });
+
+app.use(router);
+
+sequelize.sync();
+
+app.listen(5000);
